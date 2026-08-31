@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Rust / Soroban build artifacts
+contract/target/
+
+# Stray wasm artifacts (built wasm lives under contract/target, already ignored)
+*.wasm
+
+# Environment
+.env.local
+.env*.local
+
+# OS
+.DS_Store
+
+# Note: the Bun lockfile (bun.lock / bun.lockb) is intentionally NOT ignored.
