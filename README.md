@@ -216,6 +216,18 @@ Every push and pull request to `main` runs the GitHub Actions pipeline defined i
 
 Nothing lands on `main` broken — a lint error, type error, failed build, or failing contract test turns the pipeline red.
 
+## Requirements checklist (Level 2)
+
+| Requirement | Status | Where |
+| --- | --- | --- |
+| 3+ error types handled | ✅ 13 typed errors | 6 contract errors (`LumenRanksError` in `contract/lumenranks/src/lib.rs`) + 7 frontend error codes (`client/types/wallet.ts`), every one translated to a friendly toast message |
+| Contract deployed on testnet | ✅ | [`CDYRLKMADEHBFUYNHOUHXHSRWJHBRPDHZR6W3QSUE5LBYL5THTULKPZS`](https://stellar.expert/explorer/testnet/contract/CDYRLKMADEHBFUYNHOUHXHSRWJHBRPDHZR6W3QSUE5LBYL5THTULKPZS) |
+| Contract called from the frontend | ✅ | `client/lib/contract/client.ts` — simulated reads + build→simulate→sign→send→poll writes, used by every page |
+| Transaction status visible | ✅ | `client/lib/store/tx-store.ts` — `pending → success \| failed` tracker rendered in **Activity → My transactions** with stellar.expert links |
+| 10+ meaningful commits | ✅ | Conventional commits (`feat`, `test`, `ci`, `docs`, `chore`) building the project up layer by layer |
+| Multi-wallet app | ✅ | StellarWalletsKit with `allowAllModules()` — Freighter, xBull, Albedo, Hana, Lobstr, … |
+| Real-time event integration | ✅ | `client/hooks/use-events.ts` polls `getEvents` every 5s; leaderboard state re-polls every 5s |
+
 ## License
 
 [MIT](LICENSE) © 2026 mishaldotrs — built as a demonstration project for Soroban smart-contract + Next.js integration.
