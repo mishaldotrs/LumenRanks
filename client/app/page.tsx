@@ -68,7 +68,7 @@ export default function LandingPage() {
             <Trophy className="h-12 w-12" />
             <Crown className="h-8 w-8" />
           </div>
-          <h1 className="max-w-3xl text-4xl font-extrabold tracking-tight md:text-6xl">
+          <h1 className="max-w-4xl text-5xl font-bold tracking-tight md:text-7xl">
             Track token holders in <span className="text-primary">real-time</span> — only on
             Stellar
           </h1>
