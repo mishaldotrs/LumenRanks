@@ -19,3 +19,4 @@ contract/target/
 .DS_Store
 
 # Note: the Bun lockfile (bun.lock / bun.lockb) is intentionally NOT ignored.
+contract/lumenranks/test_snapshots/
