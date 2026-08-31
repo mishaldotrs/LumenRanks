@@ -134,6 +134,20 @@ impl LumenRanks {
         extend_instance_ttl(&env);
     }
 
+    /// Admin-only: hands the admin role over to `new_admin`.
+    pub fn set_admin(env: Env, admin: Address, new_admin: Address) {
+        require_init(&env);
+        admin.require_auth();
+        let stored_admin: Address = env.storage().instance().get(&DataKey::Admin).unwrap();
+        if admin != stored_admin {
+            panic_with_error!(&env, LumenRanksError::NotAdmin);
+        }
+        env.storage().instance().set(&DataKey::Admin, &new_admin);
+        extend_instance_ttl(&env);
+        env.events()
+            .publish((symbol_short!("set_admin"), admin), new_admin);
+    }
+
     /// Admin-only: credits `to` with `amount` and increases total supply.
     pub fn mint(env: Env, admin: Address, to: Address, amount: i128) {
         require_init(&env);

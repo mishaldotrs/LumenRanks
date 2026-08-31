@@ -73,6 +73,30 @@ fn test_uninitialized_errors() {
 }
 
 #[test]
+fn test_set_admin_hands_over_role() {
+    let (env, client, admin) = setup();
+    let new_admin = Address::generate(&env);
+    let alice = Address::generate(&env);
+
+    client.set_admin(&admin, &new_admin);
+    assert_eq!(client.get_admin(), new_admin);
+
+    // Old admin can no longer mint; new admin can.
+    assert_eq!(
+        client.try_mint(&admin, &alice, &100),
+        Err(Ok(LumenRanksError::NotAdmin.into()))
+    );
+    client.mint(&new_admin, &alice, &100);
+    assert_eq!(client.balance(&alice), 100);
+
+    // A random address can't grab the role either.
+    assert_eq!(
+        client.try_set_admin(&admin, &alice),
+        Err(Ok(LumenRanksError::NotAdmin.into()))
+    );
+}
+
+#[test]
 fn test_mint() {
     let (env, client, admin) = setup();
     let alice = Address::generate(&env);
