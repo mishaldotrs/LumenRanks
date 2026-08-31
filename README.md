@@ -4,8 +4,8 @@
 
 |  |  |
 | --- | --- |
-| 📜 **Stellar smart contract (Testnet)** | `CCUDMJARNXQJNBDRC4GVKKDV3SGKPEVMHWZ7VMFSBUI7V6JBVN3AYJOO` |
-| 🔎 **Explorer** | [stellar.expert/explorer/testnet/contract/CCUDMJ…](https://stellar.expert/explorer/testnet/contract/CCUDMJARNXQJNBDRC4GVKKDV3SGKPEVMHWZ7VMFSBUI7V6JBVN3AYJOO) |
+| 📜 **Stellar smart contract (Testnet)** | `CDYRLKMADEHBFUYNHOUHXHSRWJHBRPDHZR6W3QSUE5LBYL5THTULKPZS` |
+| 🔎 **Explorer** | [stellar.expert/explorer/testnet/contract/CDYRLK…](https://stellar.expert/explorer/testnet/contract/CDYRLKMADEHBFUYNHOUHXHSRWJHBRPDHZR6W3QSUE5LBYL5THTULKPZS) |
 | 🪙 **Token** | LumenRanks Token (`LUMR`), 7 decimals |
 | 👨‍💻 **Developed by** | [@mishaldotrs](https://github.com/mishaldotrs) |
 
@@ -37,7 +37,7 @@ Rankings (`get_leaderboard`, `get_rank`) are computed on-chain from that set, so
 
 | Role | What they do | What the contract enforces |
 | --- | --- | --- |
-| **Admin** | Mints new LUMR to any address (set once at `initialize`) | Only the stored admin address can mint — everyone else gets `NotAdmin` |
+| **Admin** | Mints new LUMR to any address (set at `initialize`, transferable via `set_admin`) | Only the stored admin address can mint or hand over the role — everyone else gets `NotAdmin` |
 | **Holder** | Transfers LUMR to others, burns their own, climbs the leaderboard | You can only move what you hold; self-transfers and zero/negative amounts are rejected |
 
 ## Features
@@ -101,8 +101,8 @@ LumenRanks/
 │   │   └── store/             # Zustand stores (wallet, tx tracker, events)
 │   └── types/                 # contract.ts, wallet.ts, events.ts
 ├── contract/                  # Soroban contract (Rust workspace)
-│   └── lumenranks/src/        # lib.rs (contract) + test.rs (13 tests)
-├── scripts/                   # build.sh, setup-identity.sh, deploy.sh
+│   └── lumenranks/src/        # lib.rs (contract) + test.rs (14 tests)
+├── scripts/                   # build.sh, setup-identity.sh, deploy.sh, seed-demo.sh
 └── .github/workflows/ci.yml   # CI: frontend + contract jobs
 ```
 
@@ -165,6 +165,7 @@ Visit `http://localhost:3000`. Connect a funded testnet wallet, mint some LUMR f
 | Function | Description |
 | --- | --- |
 | `initialize(admin, name, symbol, decimals)` | One-time setup of admin and token metadata. |
+| `set_admin(admin, new_admin)` | Admin-only: hands the admin role over to `new_admin`. Emits `("set_admin", admin)`. |
 | `mint(admin, to, amount)` | Admin-only: credits `to` and increases total supply. Emits `("mint", to)`. |
 | `transfer(from, to, amount)` | Moves tokens between accounts (auth: `from`). Emits `("transfer", from, to)`. |
 | `burn(from, amount)` | Destroys tokens and reduces total supply (auth: `from`). Emits `("burn", from)`. |
@@ -210,7 +211,7 @@ Every push and pull request to `main` runs the GitHub Actions pipeline defined i
 | Job | Steps |
 | --- | --- |
 | **Frontend** | `bun install --frozen-lockfile` → `bun run lint` (ESLint) → `bun run typecheck` (tsc) → `bun run build` (Next.js production build) |
-| **Contract** | Rust stable toolchain + cargo cache → `cargo test` (all 13 Soroban contract tests) |
+| **Contract** | Rust stable toolchain + cargo cache → `cargo test` (all 14 Soroban contract tests) |
 
 Nothing lands on `main` broken — a lint error, type error, failed build, or failing contract test turns the pipeline red.
 
