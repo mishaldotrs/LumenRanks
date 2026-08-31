@@ -4,10 +4,11 @@
 
 |  |  |
 | --- | --- |
+| 🔗 **Live link** | [lumen-ranks.vercel.app](https://lumen-ranks.vercel.app/) |
 | 📜 **Stellar smart contract (Testnet)** | `CDYRLKMADEHBFUYNHOUHXHSRWJHBRPDHZR6W3QSUE5LBYL5THTULKPZS` |
 | 🔎 **Explorer** | [stellar.expert/explorer/testnet/contract/CDYRLK…](https://stellar.expert/explorer/testnet/contract/CDYRLKMADEHBFUYNHOUHXHSRWJHBRPDHZR6W3QSUE5LBYL5THTULKPZS) |
 | 🪙 **Token** | LumenRanks Token (`LUMR`), 7 decimals |
-| 👨‍💻 **Developed by** | [@mishaldotrs](https://github.com/mishaldotrs) |
+| 👨‍💻 **Developed by** | [@mishaldotrs](https://github.com/mishaldotrs) · [X](https://x.com/mishaldotrs) |
 
 ## Overview
 
